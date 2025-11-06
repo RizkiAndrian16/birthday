@@ -1,0 +1,654 @@
+:root{
+  --bg1:#FFF0F5; /* lavender blush */
+  --bg2:#E0F2FE; /* sky-100 */
+  --txt:#374151; /* gray-700 */
+  --pink:#F472B6;
+  --pink-dark:#EC4899;
+  --card: rgba(255, 255, 255, 0.18); /* transparan lembut tapi tetap kelihatan */
+  --shadow: 0 15px 40px rgba(0, 0, 0, 0.25); /* sedikit lebih gelap supaya kontras */
+  --accent-glow: 0 0 25px rgba(244, 114, 182, 0.3);
+}
+
+/* THEME VARIANTS */
+:root[data-theme="peach"]{
+  --bg1:#E0F2FE; /* sky-100 */
+  --bg2:#BAE6FD; /* sky-200 */
+  --pink:#38BDF8; /* sky-400 — warna utama biru lembut */
+  --pink-dark:#0EA5E9; /* sky-500 — biru sedikit lebih kuat */
+  --shadow: 0 15px 40px rgba(56, 189, 248, 0.15);
+  --accent-glow: 0 0 25px rgba(56, 189, 248, 0.3);
+}
+
+:root[data-theme="mint"]{
+  --bg1:#ECFDF5; /* emerald-50 */
+  --bg2:#D1FAE5; /* emerald-100 */
+  --pink:#34D399; /* emerald-400 */
+  --pink-dark:#10B981; /* emerald-500 */
+  --shadow: 0 15px 40px rgba(52, 211, 153, 0.15);
+  --accent-glow: 0 0 25px rgba(52, 211, 153, 0.3);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body {
+  margin: 0;
+  font-family: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--txt);
+  background: none;
+  background-color: black;
+  overflow-x: hidden;
+  position: relative;
+  background-attachment: fixed; /* biar gak gerak waktu scroll */
+}
+
+/* Floating elements background */
+body::before {
+  content: '';
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+  opacity: 0.08;
+  border-radius: 50%;
+  top: -100px;
+  left: -100px;
+  animation: float1 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--pink-dark) 0%, transparent 70%);
+  opacity: 0.06;
+  border-radius: 50%;
+  bottom: -150px;
+  right: -150px;
+  animation: float2 25s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, 30px) scale(1.1); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-30px, -50px) scale(1.15); }
+}
+
+.container{
+  min-height:100dvh;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  width: min(540px, 92vw);
+  background: var(--card);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  padding: clamp(24px, 5vw, 36px);
+  animation: floatIn .8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  border: 1.5px solid rgb(255, 255, 255);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tambahan efek glassy lembut */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.12),
+    rgba(255,255,255,0.05)
+  );
+  border-radius: inherit;
+  z-index: 0;
+}
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  text-align: center;
+}
+
+/* Cute shimmer effect on card */
+.card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: translateX(-100%) rotate(45deg); }
+  50% { transform: translateX(100%) rotate(45deg); }
+}
+
+@keyframes floatIn{
+  from{ transform: translateY(30px) scale(0.95); opacity:0 }
+  to{ transform: translateY(0) scale(1); opacity:1 }
+}
+
+h1,h2{
+  font-family:'Quicksand', sans-serif;
+  margin:0 0 12px;
+  letter-spacing:.5px;
+  position: relative;
+  z-index: 1;
+  color: var(--txt);
+}
+h1{ 
+  font-size:clamp(28px, 5vw, 36px);
+}
+h2{ 
+  font-size:clamp(24px, 4.5vw, 30px);
+  background: linear-gradient(135deg, var(--pink-dark), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+p{ margin:8px 0 0; line-height:1.7; position: relative; z-index: 1; }
+
+.input{
+  margin-top:20px;
+  display:flex;
+  gap:12px;
+}
+.input input{
+  flex:1;
+  height:52px;
+  border-radius:16px;
+  border:2px solid #fce7f3;
+  padding:0 16px;
+  font-size:18px;
+  outline:none;
+  transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: white;
+  font-family: 'Nunito', sans-serif;
+}
+.input input:focus{
+  border-color: var(--pink);
+  box-shadow: 0 0 0 4px rgba(244,114,182,.12), var(--accent-glow);
+  transform: translateY(-2px);
+}
+.input input::placeholder {
+  color: #d1d5db;
+}
+
+.btn {
+  height: 52px;
+  border: none;
+  border-radius: 16px;
+  padding: 0 24px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
+  text-decoration: none;
+  font-family: 'Quicksand', sans-serif;
+  letter-spacing: 0.3px;
+  font-size: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-primary{
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  color:#fff;
+  box-shadow: 0 8px 24px rgba(244,114,182,.4);
+}
+.btn-primary:hover{ 
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(244,114,182,.5);
+}
+.btn-primary:active{ 
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(244,114,182,.4);
+}
+
+.btn-ghost{
+  background:#fff;
+  color:var(--pink);
+  border:2px solid #fce7f3;
+}
+.btn-ghost:hover {
+  background: #fdf2f8;
+  border-color: var(--pink);
+  transform: translateY(-2px);
+}
+.actions{
+  display:flex; gap:12px; margin-top:18px; flex-wrap:wrap;
+  position: relative;
+  z-index: 1;
+  justify-content: center; /* ⬅️ center button "Lihat Clue" */
+}
+
+/* Cute badge / sub */
+.badge{
+  display:inline-flex; align-items:center; gap:8px;
+  background: linear-gradient(135deg, #fff, var(--bg2));
+  border:2px solid var(--pink);
+  color: var(--pink-dark); /* ← ambil dari tema aktif */
+  padding:10px 16px;
+  border-radius:999px;
+  font-weight:700;
+  margin-bottom:14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  animation: bounce 2s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px; /* auto membuatnya di tengah */
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Popup modal */
+.modal-backdrop{
+  position:fixed; inset:0;
+  background: rgba(0,0,0,.4);
+  backdrop-filter: blur(4px);
+  display:none; align-items:center; justify-content:center;
+  padding:20px;
+  z-index: 1000;
+}
+.modal{
+  width:min(440px, 92vw);
+  background:#fff;
+  border-radius:24px;
+  padding:28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  transform: scale(.9);
+  opacity:0;
+  border: 2px solid rgba(244, 114, 182, 0.1);
+}
+.modal.show{ animation: pop .35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards }
+@keyframes pop{
+  to{ transform: scale(1); opacity:1 }
+}
+.modal-backdrop.show{ display:flex; animation: fade .3s ease both }
+@keyframes fade{ from{opacity:0} to{opacity:1} }
+
+.modal h3{ 
+  margin:0 0 8px; 
+  font-size:22px;
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(135deg, var(--pink-dark), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.modal p{ margin:0 0 18px; line-height: 1.6; }
+
+.center{ text-align:center }
+hr.soft{ 
+  border:none; 
+  height:2px; 
+  background: linear-gradient(90deg, transparent, #fce7f3, transparent); 
+  margin:18px 0;
+}
+
+/* Welcome decoration */
+.welcome{ text-align:center; }
+.sparkles{ 
+  font-size:clamp(32px, 7vw, 42px); 
+  margin-top:12px;
+  animation: sparkle 1.5s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes sparkle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(-5deg); }
+  75% { transform: scale(1.1) rotate(5deg); }
+}
+
+/* Theme switcher chips */
+.theme-row{ 
+  display:flex; 
+  gap:10px; 
+  flex-wrap:wrap; 
+  margin-top:12px;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.chip{
+  padding:10px 16px;
+  border-radius:999px;
+  border:2px solid #f3f4f6;
+  background:#fff;
+  cursor:pointer;
+  font-weight:700;
+  font-size:14px;
+  transition: all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Quicksand', sans-serif;
+}
+.chip:hover {
+  transform: translateY(-2px);
+  border-color: #fce7f3;
+  box-shadow: 0 4px 12px rgba(244, 114, 182, 0.15);
+}
+
+.chip.active {
+  border-color: var(--pink);
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  color: white;
+  box-shadow: 0 6px 20px rgba(244,114,182,0.4);
+  transform: translateY(-2px);
+}
+
+.chip[aria-current="true"]{ 
+  border-color:var(--pink); 
+  box-shadow:0 0 0 3px rgba(244,114,182,.16);
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  color: white;
+}
+
+#music-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fff, #fdf2f8);
+  box-shadow: 0 6px 24px rgba(244, 114, 182, 0.3);
+  border: 2px solid rgba(244, 114, 182, 0.2);
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: pulse 2s ease-in-out infinite;
+}
+#music-btn:hover {
+  background: linear-gradient(135deg, #fdf2f8, var(--pink));
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(244, 114, 182, 0.5);
+}
+#music-btn:active {
+  transform: scale(0.95);
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(244, 114, 182, 0.3); }
+  50% { box-shadow: 0 6px 24px rgba(244, 114, 182, 0.5), 0 0 0 8px rgba(244, 114, 182, 0.1); }
+}
+
+.confetti {
+  filter: drop-shadow(0 0 15px rgba(255, 100, 150, 0.5));
+}
+
+.card p strong {
+  display: block;
+  text-align: center;
+  margin-bottom: 4px;
+  font-size: 15px;
+  color: var(--pink-dark);
+  position: relative;
+  z-index: 1;
+}
+
+/* Cute decorative elements */
+#welcome-name {
+  background: linear-gradient(135deg, var(--pink-dark), var(--pink), #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  animation: shimmerText 3s ease-in-out infinite;
+}
+
+@keyframes shimmerText {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .input { flex-direction: column; }
+  .input input, .btn { width: 100%; }
+  h1 { font-size: 24px; }
+  .badge { font-size: 13px; padding: 8px 14px; }
+}
+
+/* Jarak tambahan untuk blok pilihan tema */
+.theme-block{ 
+  margin-top: 36px;   /* tambahin jarak lebih besar */
+}          
+@media (max-width: 480px){
+  .theme-block{ 
+    margin-top: 42px; /* di HP sedikit lebih besar biar lega */
+  }        
+}
+
+/* Tombol titik tiga di pojok kanan atas */
+.theme-menu {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 10;
+}
+
+.theme-toggle {
+  background: linear-gradient(135deg, #fff, #fdf2f8);
+  border: 2px solid #fbcfe8;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--pink-dark);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(244, 114, 182, 0.2);
+  transition: all 0.3s ease;
+}
+.theme-toggle:hover {
+  background: var(--pink);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Popup tema yang muncul */
+.theme-popup {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: #fff;
+  border: 2px solid #fce7f3;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 10px;
+  animation: popUp 0.25s ease forwards;
+}
+@keyframes popUp {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.theme-popup.show { display: flex; flex-direction: column; gap: 8px; }
+
+/* Gaya chip tetap sama */
+.theme-popup .chip {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--pink);
+  background: #fff;
+  color: var(--pink-dark);
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08), var(--accent-glow);
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.theme-toggle:hover {
+  background: var(--bg1);
+  box-shadow: 0 8px 28px var(--accent-glow);
+  transform: scale(1.05);
+}
+
+/* === VIDEO BACKGROUND FIX UNTUK PLAYER.HTML === */
+html, body {
+  background: transparent !important; /* biar iframe transparan dan video player.html kelihatan */
+}
+
+body {
+  background-color: transparent !important;
+}
+
+.container, .card, .modal, .theme-popup {
+  position: relative;
+  z-index: 1;
+}
+
+/* Tambahkan sedikit efek bayangan hitam di atas video agar teks terbaca */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35); /* bisa ubah transparansinya */
+  z-index: 0;
+}
+
+/* === RESPONSIVE FIX MOBILE AGAR SEPERTI DESKTOP === */
+@media (max-width: 480px) {
+  .container {
+    padding: 32px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    width: 90vw;
+    max-width: 420px; /* biar proporsional di mobile */
+    padding: 28px 22px;
+    border-radius: 22px;
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+  }
+
+  .card h1 {
+    font-size: 26px;
+  }
+
+  .card p {
+    font-size: 15px;
+  }
+
+  .input input {
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .btn {
+    height: 48px;
+    font-size: 15px;
+  }
+
+  /* biar tombol clue dan badge tetap rapi */
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* 🎥 Video background full responsive fix */
+#bg-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  filter: brightness(0.6) blur(2px);
+  background-color: black;
+}
+
+/* untuk HP biar tetap proporsional */
+@media (max-width: 768px) {
+  #bg-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.subtext {
+  color: white !important;
+}

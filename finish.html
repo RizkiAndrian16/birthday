@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Birthday Gift — Forever 💖</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      text-align: center;
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      overflow: hidden;
+    }
+
+    .paper-container {
+      background: linear-gradient(135deg, 
+        rgba(255, 240, 245, 0.95) 0%, 
+        rgba(255, 235, 245, 0.92) 100%);
+      border-radius: 20px;
+      padding: 28px;
+      margin: 20px auto;
+      box-shadow: 
+        0 8px 16px rgba(236, 72, 153, 0.15),
+        0 3px 6px rgba(236, 72, 153, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      position: relative;
+      max-width: 420px;
+      border: 2px solid rgba(236, 72, 153, 0.2);
+      transform: rotate(-0.5deg);
+      transition: transform 0.3s ease;
+    }
+
+    .paper-container:hover {
+      transform: rotate(0deg) scale(1.01);
+    }
+
+    .paper-container::before {
+      content: '💕';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 24px;
+      opacity: 0.3;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .paper-container::after {
+      content: '✨';
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      font-size: 20px;
+      opacity: 0.3;
+      animation: float 3s ease-in-out infinite 1.5s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .love-text {
+      font-size: 18px;
+      line-height: 1.8;
+      animation: fadeIn 1.5s ease forwards;
+      color: #4a4a4a;
+      position: relative;
+      z-index: 1;
+    }
+
+    .love-text p {
+      margin-bottom: 14px;
+    }
+
+    .love-text strong {
+      color: #ec4899;
+      font-weight: 700;
+      text-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+    }
+
+    .emoji {
+      font-size: 36px;
+      animation: pop 1s ease infinite alternate;
+      margin-top: 8px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pop {
+      from { transform: scale(1); }
+      to { transform: scale(1.2); }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      filter: drop-shadow(0 0 8px rgba(255, 150, 200, 0.5));
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px) saturate(160%);
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      padding: 32px;
+      position: relative;
+      z-index: 1;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      margin: auto;
+      max-width: 500px;
+    }
+
+    .btn {
+      margin-top: 30px;
+      padding: 14px 28px;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: 'Quicksand', sans-serif;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #f472b6, #ec4899);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 14px rgba(244,114,182,0.4);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(244,114,182,0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="heartCanvas"></canvas>
+  <div class="container">
+    <section class="card">
+      <div class="badge">💞 Selamat Bocil 💞</div>
+      
+      <div class="paper-container">
+        <div class="love-text">
+          <p>Yeayyy! 🥰</p>
+          <p><strong>Sekarang ayangg resmi jadi punya ki selamanya 💖</strong></p>
+          <p>Semoga kita selalu bareng-bareng terus yaa sayangkuu 😚💫</p>
+          <p>Happy 22th Birthday, My Love 💝</p>
+          <p class="emoji">💞💞💞</p>
+        </div>
+      </div>
+
+      <button class="btn" onclick="parent.loadPage('index.html')">Balik ke Awal 💌</button>
+    </section>
+  </div>
+
+  <script type="module">
+    import { initCluePage } from './app.js';
+    initCluePage(); // supaya tema & musik tetap aktif
+  </script>
+
+  <script>
+    // ===== ANIMASI HATI JATUH =====
+    const canvas = document.getElementById("heartCanvas");
+    const ctx = canvas.getContext("2d");
+    let hearts = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function createHeart() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * -50,
+        size: 8 + Math.random() * 12,
+        speed: 1 + Math.random() * 2,
+        color: `hsl(${Math.random() * 30 + 330}, 90%, 70%)`,
+        rotation: Math.random() * Math.PI * 2
+      };
+    }
+
+    function drawHeart(h) {
+      const { x, y, size, rotation, color } = h;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation);
+      ctx.scale(size / 20, size / 20);
+      ctx.beginPath();
+      ctx.moveTo(0, 3);
+      ctx.bezierCurveTo(3, 0, 3, -3, 0, -3);
+      ctx.bezierCurveTo(-3, -3, -3, 0, 0, 3);
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (hearts.length < 60) hearts.push(createHeart());
+      for (let h of hearts) {
+        h.y += h.speed;
+        h.x += Math.sin(h.y / 30) * 0.8;
+        h.rotation += 0.02;
+        if (h.y > canvas.height + 30) {
+          h.y = Math.random() * -40;
+          h.x = Math.random() * canvas.width;
+        }
+        drawHeart(h);
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>

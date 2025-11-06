@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#FDF2F8">
+  <meta name="description" content="A little birthday gift website for you 💝" />
+  <title>Birthday Gift — Password</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=5">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <section class="card">
+      <div class="badge">🎀 Birthday Gift</div>
+      <h1><span style="background: linear-gradient(135deg, var(--pink-dark), var(--pink)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Masukkan Password</span> 🎁</h1>
+      <p class="subtext">Passwordnya lihat di clue yaa sayangkuu 💞</p>
+
+      <form id="password-form" class="input" autocomplete="off">
+        <input id="password-input" type="password" inputmode="numeric" pattern="[0-9]*" placeholder="••••" required />
+        <button class="btn btn-primary" type="submit">Masuk</button>
+      </form>
+
+      <div class="actions">
+        <a class="btn btn-ghost" href="#" onclick="parent.loadPage('clue.html')">Lihat Clue ✨</a>
+      </div>
+
+      <!-- Tombol titik tiga di pojok kanan atas -->
+      <div class="theme-menu">
+        <button id="theme-toggle" class="theme-toggle">⋯</button>
+        <div id="theme-popup" class="theme-popup">
+          <button class="chip" data-theme="default">Pink</button>
+          <button class="chip" data-theme="peach">Sky Blue</button>
+          <button class="chip" data-theme="mint">Mint</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h3 id="modal-title">Info</h3>
+      <p id="modal-msg">Pesan</p>
+      <hr class="soft" />
+      <div class="center">
+        <button class="btn btn-primary" id="modal-close" type="button">Oke</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+  import { initPasswordPage } from './app.js';
+  initPasswordPage();
+</script>
+</body>
+</html>

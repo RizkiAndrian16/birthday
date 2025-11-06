@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Birthday Gift — Welcome</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .confetti {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* 🌸 Warna teks jadi putih lembut */
+    .welcome p {
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.7;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25); /* biar tetap kebaca di background */
+    }
+
+    /* 🌸 Biar tombol-tombol di bawah rapi */
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    /* 🌸 Judul tetap gradasi cantik */
+    h1 span#welcome-name {
+      background: linear-gradient(135deg, #f472b6, #f9a8d4, #fcd34d);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="card welcome">
+      <div class="badge">💝 Welcome</div>
+      <h1><span id="welcome-name">Suchy Rahmadhani</span></h1>
+      <div class="sparkles">✨🎂🎉</div>
+
+      <p style="color:#fff; line-height:1.7; text-shadow:0 1px 4px rgba(0,0,0,0.25);">
+  Halooo cantikkuu 💕 Selamatt ulang tahunn yaa sayangg 🥰 Hari ini umur ayangg nambah satu tahun, yeayy 💖 
+  Semoga rezeki ayangg selalu lancar, urusannya dimudahkan, dan langkahnya diberkahi yaa tayangg. 
+  Ki doain ayangg sehat selalu, panjang umur, makin dewasa, dan makin gemes tiap harinya 🤭 
+  Makasii udah jadi perempuan kuat dan hebat yang selalu ki banggakan 💗 
+  Tetep bahagia terus yaa sayangkuu, ki sayangg kaliii sama ayangg 😚💕 </p>
+  <p>Love You More Sayangkuu Cintakuu 💞 </p>
+
+     <div class="actions" style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-direction:row !important;">
+        <a class="btn btn-ghost" href="#" 
+          onclick="parent.loadPage('index.html')" 
+          style="flex:1; margin-right:10px; text-align:center;">
+          Halaman Awal
+        </a>
+  
+        <a class="btn btn-primary" href="#" 
+          onclick="parent.loadPage('kata.html')" 
+          style="flex:1; margin-left:10px; text-align:center;">
+          Next 💖
+        </a>
+    </div>
+
+      <div class="theme-menu">
+        <!-- <button id="theme-toggle" class="theme-toggle">⋯</button> -->
+        <div id="theme-popup" class="theme-popup">
+          <button class="chip" data-theme="default">Default</button>
+          <button class="chip" data-theme="peach">Sky Blue</button>
+          <button class="chip" data-theme="mint">Mint</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <canvas class="confetti" id="confetti"></canvas>
+
+  <script type="module">
+    import { initWelcomePage } from './app.js';
+    initWelcomePage();
+  </script>
+</body>
+</html>

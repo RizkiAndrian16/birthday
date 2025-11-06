@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Birthday Gift — Clue</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <section class="card">
+      <div class="badge">🔎 Clue</div>
+      <h2>Ini Cluenya Yaa Sayangkuu</h2>
+      <p id="clue-text">...</p>
+      <div class="actions">
+        <a class="btn btn-ghost"   href="#" onclick="parent.loadPage('index.html')">Kembali</a>
+      </div>
+
+      <div class="theme-menu">
+        <!-- <button id="theme-toggle" class="theme-toggle">⋯</button> -->
+        <div id="theme-popup" class="theme-popup">
+          <button class="chip" data-theme="default">Pink</button>
+          <button class="chip" data-theme="peach">Sky Blue</button>
+          <button class="chip" data-theme="mint">Mint</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module">
+  import { initCluePage } from './app.js';
+  initCluePage();
+</script>
+</body>
+</html>
