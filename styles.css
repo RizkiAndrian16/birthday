@@ -520,7 +520,6 @@ hr.soft{
     font-size: 20px;
   }
 }
-
 .theme-toggle:hover {
   background: var(--pink);
   color: #fff;
